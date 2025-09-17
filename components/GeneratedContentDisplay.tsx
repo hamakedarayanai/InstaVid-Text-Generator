@@ -45,8 +45,27 @@ export const GeneratedContentDisplay: React.FC<GeneratedContentDisplayProps> = (
   const formattedHashtags = hashtags.map(tag => `#${tag.replace(/^#/, '')}`);
   const hashtagsString = formattedHashtags.join(' ');
 
+  const [allCopied, setAllCopied] = useState(false);
+
+  const handleCopyAll = () => {
+    const fullContent = `${title}\n\n${caption}\n\n${hashtagsString}`;
+    navigator.clipboard.writeText(fullContent);
+    setAllCopied(true);
+    setTimeout(() => setAllCopied(false), 2000);
+  };
+
   return (
     <div className="mt-10 space-y-6 animate-fade-in">
+        <div className="text-center mb-4">
+          <button
+            onClick={handleCopyAll}
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-full shadow-lg transition-all duration-300 ease-in-out hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-slate-900 transform hover:scale-105"
+          >
+            {allCopied ? <CheckIcon className="w-5 h-5" /> : <CopyIcon className="w-5 h-5" />}
+            {allCopied ? 'Copied Everything!' : 'Copy All Content'}
+          </button>
+        </div>
+
         <ContentCard title="Title" textToCopy={title}>
             <p className="text-gray-300 font-medium text-xl">{title}</p>
         </ContentCard>
