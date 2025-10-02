@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="data:image/svg+xml,<svg width='512' height='512' viewBox='0 0 512 512' fill='none' xmlns='http://www.w3.org/2000/svg'><defs><linearGradient id='logo-gradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23A78BFA'/><stop offset='100%25' stop-color='%23818CF8'/></linearGradient><linearGradient id='bg-gradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23334155'/><stop offset='100%25' stop-color='%231E293B'/></linearGradient></defs><rect width='512' height='512' rx='128' fill='url(%23bg-gradient)'/><path d='M363.31,234.58c15.5,8.95,15.5,31.89,0,40.84L211.54,364.5c-15.5,8.95-35.04-2.02-35.04-19.62V165.12c0-17.6,19.54-28.57,35.04-19.62Z' fill='url(%23logo-gradient)'/><path d='M128 128 L149.333 106.667 L170.667 128 L149.333 149.333 Z' fill='%23A78BFA'/><path d='M384 384 L405.333 362.667 L426.667 384 L405.333 405.333 Z' fill='%23818CF8'/><path d='M100 350 L110.667 339.333 L121.333 350 L110.667 360.667 Z' fill='%23A78BFA' opacity='0.7'/></svg>" />
+    <link rel="icon" href="data:image/svg+xml,<svg width='512' height='512' viewBox='0 0 512' fill='none' xmlns='http://www.w3.org/2000/svg'><defs><linearGradient id='logo-gradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23A78BFA'/><stop offset='100%25' stop-color='%23818CF8'/></linearGradient><linearGradient id='bg-gradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23334155'/><stop offset='100%25' stop-color='%231E293B'/></linearGradient></defs><rect width='512' height='512' rx='128' fill='url(%23bg-gradient)'/><path d='M363.31,234.58c15.5,8.95,15.5,31.89,0,40.84L211.54,364.5c-15.5,8.95-35.04-2.02-35.04-19.62V165.12c0-17.6,19.54-28.57,35.04-19.62Z' fill='url(%23logo-gradient)'/><path d='M128 128 L149.333 106.667 L170.667 128 L149.333 149.333 Z' fill='%23A78BFA'/><path d='M384 384 L405.333 362.667 L426.667 384 L405.333 405.333 Z' fill='%23818CF8'/><path d='M100 350 L110.667 339.333 L121.333 350 L110.667 360.667 Z' fill='%23A78BFA' opacity='0.7'/></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>InstaVid Text Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,6 +13,47 @@
       }
       .animate-fade-in {
         animation: fade-in 0.5s ease-out forwards;
+      }
+      
+      @keyframes gradient-animation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      body {
+        background: linear-gradient(-45deg, #1e293b, #0f172a, #1e293b, #334155);
+        background-size: 400% 400%;
+        animation: gradient-animation 20s ease infinite;
+      }
+
+      @keyframes toast-in {
+        from { opacity: 0; transform: translateY(20px) scale(0.9); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      @keyframes toast-out {
+        from { opacity: 1; transform: translateY(0) scale(1); }
+        to { opacity: 0; transform: translateY(20px) scale(0.9); }
+      }
+      .toast-anim-in {
+        animation: toast-in 0.3s ease-out forwards;
+      }
+      .toast-anim-out {
+        animation: toast-out 0.3s ease-in forwards;
+      }
+
+      /* Custom scrollbar for a better look */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1e293b;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #4f46e5;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #6366f1;
       }
     </style>
   <script type="importmap">
@@ -26,7 +67,7 @@
 }
 </script>
 </head>
-  <body class="bg-slate-900">
+  <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

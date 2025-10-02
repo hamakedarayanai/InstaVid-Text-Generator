@@ -9,6 +9,8 @@ interface VideoUploaderProps {
   onUrlSubmit: (url: string) => Promise<void>;
   isLoadingUrl: boolean;
   onClear: () => void;
+  context: string;
+  onContextChange: (context: string) => void;
 }
 
 export const VideoUploader: React.FC<VideoUploaderProps> = ({ 
@@ -16,7 +18,9 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
     videoPreviewUrl, 
     onUrlSubmit, 
     isLoadingUrl,
-    onClear 
+    onClear,
+    context,
+    onContextChange,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [mode, setMode] = useState<UploaderMode>('upload');
@@ -62,7 +66,7 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
 
   const tabButtonClasses = (isActive: boolean) => 
     `flex-1 py-3 px-4 text-sm font-semibold rounded-t-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800 transition-colors duration-200 flex items-center justify-center gap-2 ${
-        isActive ? 'bg-slate-800 text-indigo-400 border-b-2 border-indigo-500' : 'text-slate-400 hover:bg-slate-700/50'
+        isActive ? 'bg-slate-800/60 text-indigo-400 border-b-2 border-indigo-500' : 'text-slate-400 hover:bg-slate-700/50'
     }`;
   
   return (
@@ -86,8 +90,8 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
                         src={videoPreviewUrl}
                         controls
                         className="max-h-64 w-auto rounded-lg shadow-md mb-4"
+                        aria-label="Video preview"
                     />
-                    <p className="text-indigo-400 font-semibold text-center">Video loaded. Choose another method above to change.</p>
                 </div>
             ) : mode === 'upload' ? (
                 <div
@@ -135,6 +139,22 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
                     </div>
                 </form>
             )}
+             
+            {/* Context Input */}
+            <div className="mt-6">
+                <label htmlFor="context" className="block text-sm font-medium text-gray-400 mb-2 text-center">
+                    Add context (optional)
+                </label>
+                <textarea
+                    id="context"
+                    value={context}
+                    onChange={(e) => onContextChange(e.target.value)}
+                    placeholder="e.g., 'This is a tutorial on how to bake a cake', 'My dog's first time at the beach'"
+                    rows={2}
+                    className="w-full bg-slate-700/50 border border-slate-600 rounded-lg py-2 px-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none transition-colors"
+                    aria-label="Optional context for the video"
+                />
+            </div>
         </div>
     </div>
   );
